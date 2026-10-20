@@ -18,9 +18,10 @@
   body[data-font="large"]  { --cardfs:37px; --detailfs:25px; --btnfs:31px; }
   body[data-font="xlarge"] { --cardfs:42px; --detailfs:28px; --btnfs:34px; }
 
-  .screen { display:none; height:100dvh; flex-direction:column; padding:10px; gap:10px; }
+  .screen { display:none; height:100dvh; flex-direction:column; padding:10px; gap:10px; overflow-y:auto; }
+  .screen > :not(.scroll) { flex-shrink:0; }
   .screen.active { display:flex; }
-  .scroll { overflow-y:auto; }
+  .scroll { overflow-y:auto; flex:1 1 auto; min-height:0; -webkit-overflow-scrolling:touch; }
 
   .topbar { display:flex; align-items:center; gap:8px; min-height:56px; }
   .topbar .title { flex:1; font-size:26px; font-weight:bold; color:#FFD400; text-align:center; }
@@ -85,7 +86,7 @@
     border:3px solid #FFFFFF; border-radius:12px; cursor:pointer; padding:6px;
   }
   .tabbtn.sel { background:#FFD400; color:#000000; border-color:#FFD400; }
-  #detailBody { flex:1; overflow-y:auto; font-size:var(--detailfs); line-height:1.55; color:#FFFFFF; }
+  #detailBody { flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; font-size:var(--detailfs); line-height:1.55; color:#FFFFFF; }
   #detailBody p { margin:0 0 14px 0; }
   #detailBody ul { margin:0 0 14px 0; padding-left:26px; }
   #detailBody li { margin-bottom:10px; }
@@ -274,7 +275,7 @@
 const DATA = {
  "app": {
   "name": "SK-골프캐디",
-  "version": "v1.1"
+  "version": "v1.2"
  },
  "lies": [
   {
@@ -1869,9 +1870,9 @@ const DATA = {
    "distance": "60~100",
    "goal": "깨끗이 맞으면 잘 뜹니다. 땅 먼저는 위험",
    "setup": "공은 살짝 뒤에, 손목 보호 위해 무리 금지",
-   "tip": "찍어 치지 말고 쓸어 치듯 지나가세요",
+   "tip": "내려가며 공을 먼저, 땅은 얇게 스치세요",
    "detail": {
-    "principle": "맨땅에서 60~100야드는 깨끗이 맞히면 오히려 공이 잘 뜨지만, 땅을 먼저 치면 클럽이 튀거나 손목에 충격이 옵니다. 그래서 평소보다 완만하게 쓸어 치듯 지나가며 공을 먼저 걷어내는 접촉이 안전합니다. 공을 살짝 뒤에 두면 공 먼저 맞힐 확률이 올라갑니다. 돌이 섞인 땅이나 뿌리가 보이면 세게 치지 말고, 칠 수 없는 상태로 판단되면 벌타를 감수하고 옮기는 선택이 부상 예방에 낫습니다.",
+    "principle": "맨땅에서 60~100야드는 깨끗이 맞히면 오히려 공이 잘 뜨지만, 땅을 먼저 치면 클럽이 튀거나 손목에 충격이 옵니다. PGA 공식 자료도 같은 이유로 공을 살짝 뒤에 두고 살짝 내려가며 공을 먼저 맞히라고 권합니다. 다만 세게 찍어 파는 동작은 손목 부담이 크므로, 공을 먼저 맞힌 뒤 땅은 얇게 스치는 정도가 안전합니다. 돌이 섞인 땅이나 뿌리가 보이면 세게 치지 말고, 칠 수 없는 상태로 판단되면 벌타를 감수하고 옮기는 선택이 부상 예방에 낫습니다.",
     "mistakes": [
      "평소처럼 찍어 치다 손목 충격과 뒤땅: 쓸어 치는 완만한 스윙으로 바꾸세요.",
      "튈까 봐 몸이 일어남: 머리 높이를 유지하고 체중을 왼발에 남기세요.",
@@ -3019,6 +3020,47 @@ function show(id) {
   document.querySelectorAll(".screen").forEach(function (s) { s.classList.remove("active"); });
   document.getElementById(id).classList.add("active");
 }
+
+/* ===== 휴대폰 뒤로가기(Back) 버튼 연동 =====
+   화면을 옮길마다 기록(history)에 남겨, 휴대폰 뒤로가기 버튼을 눌러도
+   앱이 닫히지 않고 이전 화면으로 돌아가게 한다. */
+let navStack = ["scr-home"];
+let navIdx = 0;
+try { history.replaceState({ d: 0 }, ""); } catch (e) {}
+function navTo(id) {
+  if (navStack[navIdx] === id) { show(id); return; }
+  document.getElementById("detailPanel").classList.remove("open");
+  navStack = navStack.slice(0, navIdx + 1);
+  navStack.push(id); navIdx++;
+  try { history.pushState({ d: navIdx }, ""); } catch (e) {}
+  show(id);
+}
+function navApply() {
+  const cur = navStack[navIdx];
+  const panel = document.getElementById("detailPanel");
+  if (cur === "__detail__") { show("scr-card"); panel.classList.add("open"); }
+  else {
+    panel.classList.remove("open");
+    if (cur === "scr-home") renderHome();
+    show(cur);
+  }
+}
+function goBackOne() {
+  if (navIdx > 0) { try { history.back(); } catch (e) {} }
+}
+function goHomeNow() {
+  goHome();
+  if (navIdx > 0) {
+    try { history.go(-navIdx); }
+    catch (e) { navStack = ["scr-home"]; navIdx = 0; }
+  }
+}
+window.addEventListener("popstate", function (e) {
+  navIdx = (e.state && typeof e.state.d === "number") ? e.state.d : 0;
+  if (navIdx < 0) navIdx = 0;
+  if (navIdx > navStack.length - 1) navIdx = navStack.length - 1;
+  navApply();
+});
 function goHome() {
   document.getElementById("detailPanel").classList.remove("open");
   renderHome(); show("scr-home");
@@ -3055,7 +3097,7 @@ function openDist(lieId) {
     };
     box.appendChild(b);
   });
-  show("scr-dist");
+  navTo("scr-dist");
 }
 
 /* ===== 카드 ===== */
@@ -3065,7 +3107,7 @@ function openCard() {
   recent = [key].concat(recent.filter(function (k) { return k !== key; })).slice(0, 5);
   LS.set(K.recent, recent);
   renderCard();
-  show("scr-card");
+  navTo("scr-card");
 }
 function appliedLines(card) {
   const out = { goal: card.goal || "", setup: card.setup || "", tip: card.tip || "" };
@@ -3139,6 +3181,11 @@ function openDetail() {
   st.tab = "principle";
   renderDetail();
   document.getElementById("detailPanel").classList.add("open");
+  if (navStack[navIdx] !== "__detail__") {
+    navStack = navStack.slice(0, navIdx + 1);
+    navStack.push("__detail__"); navIdx++;
+    try { history.pushState({ d: navIdx }, ""); } catch (e) {}
+  }
 }
 function renderDetail() {
   const card = getCard(st.lie, st.distance);
@@ -3221,7 +3268,7 @@ function openLesson(id) {
     '<div class="h">🎯 연습 방법</div>' + ul(ls.drills) +
     '<div class="srcbox"><span class="h">출처 · 신뢰 등급 ' + esc(ls.confidence || "B") + " · AI 정리 초안</span><br>" + src + "</div>";
   document.getElementById("lessonBody").scrollTop = 0;
-  show("scr-lesson");
+  navTo("scr-lesson");
 }
 
 /* ===== 설정 ===== */
@@ -3298,7 +3345,7 @@ function openEditor() {
   document.getElementById("ed-protips").value = (d.pro_tips || []).join("\n");
   document.getElementById("ed-drills").value = (d.drills || []).join("\n");
   document.getElementById("ed-reviewed").checked = !!card.reviewed;
-  show("scr-editor");
+  navTo("scr-editor");
 }
 function saveEditor() {
   const lines = function (id) {
@@ -3326,11 +3373,11 @@ function saveEditor() {
 }
 
 /* ===== 버튼 연결 ===== */
-document.getElementById("btnSettings").onclick = function () { renderSettings(); document.getElementById("settingsMsg").textContent = ""; show("scr-settings"); };
-document.getElementById("btnFavHome").onclick = function () { renderFavs(); show("scr-favs"); };
-document.getElementById("btnLessons").onclick = function () { renderLessons(); show("scr-lessons"); };
+document.getElementById("btnSettings").onclick = function () { renderSettings(); document.getElementById("settingsMsg").textContent = ""; navTo("scr-settings"); };
+document.getElementById("btnFavHome").onclick = function () { renderFavs(); navTo("scr-favs"); };
+document.getElementById("btnLessons").onclick = function () { renderLessons(); navTo("scr-lessons"); };
 document.getElementById("btnDetail").onclick = openDetail;
-document.getElementById("btnDetailBack").onclick = function () { document.getElementById("detailPanel").classList.remove("open"); };
+document.getElementById("btnDetailBack").onclick = function () { goBackOne(); };
 document.querySelectorAll(".tabbtn").forEach(function (b) {
   b.onclick = function () { st.tab = b.dataset.tab; renderDetail(); };
 });
@@ -3342,18 +3389,9 @@ document.getElementById("btnFav").onclick = function () {
   LS.set(K.favs, favs);
   renderCard();
 };
-document.querySelectorAll("[data-home]").forEach(function (b) { b.onclick = goHome; });
+document.querySelectorAll("[data-home]").forEach(function (b) { b.onclick = goHomeNow; });
 document.querySelectorAll("[data-back]").forEach(function (b) {
-  b.onclick = function () {
-    const from = b.dataset.back;
-    if (from === "dist") { if (st.distFrom === "settings") { renderSettings(); show("scr-settings"); } else goHome(); }
-    else if (from === "card") { st.distMode = "card"; st.distFrom = "home"; openDist(st.lie); }
-    else if (from === "favs") goHome();
-    else if (from === "settings") goHome();
-    else if (from === "editor") { st.distMode = "edit"; st.distFrom = "settings"; openDist(st.lie); }
-    else if (from === "lessons") goHome();
-    else if (from === "lesson") { renderLessons(); show("scr-lessons"); }
-  };
+  b.onclick = function () { goBackOne(); };
 });
 document.querySelectorAll("[data-fontbtn]").forEach(function (b) {
   b.onclick = function () {
@@ -3401,7 +3439,7 @@ function renderHomeForEdit() {
     b.onclick = function () { st.distMode = "edit"; st.distFrom = "settings"; openDist(l.id); };
     box.appendChild(b);
   });
-  show("scr-dist");
+  navTo("scr-dist");
 }
 document.getElementById("btnEditorSave").onclick = saveEditor;
 document.getElementById("btnEditorRevert").onclick = function () {
