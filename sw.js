@@ -2,7 +2,7 @@
    - 저장소 이름에 앱 버전을 넣는다. 버전을 올리면 옛 저장분은 지워지고 새 파일을 받는다.
    - 앱 본체(index.html)는 인터넷이 되면 새것을 먼저 받고, 안 되면 저장분을 쓴다.
    - LocalStorage(설정·수정 카드·즐겨찾기)는 이 파일이 건드리지 않으므로 업데이트해도 유지된다. */
-const CACHE_NAME = "sk-golf-caddie-v1.2-icon2";
+const CACHE_NAME = "sk-golf-caddie-v1.2-icon4";
 const FILES = [
   "./",
   "./index.html",
