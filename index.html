@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#004d1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>SK-골프캐디 v2.1</title>
+<title>SK-골프캐디 v2.2</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -34,6 +34,7 @@
     --svg-grass: #f0fdf4;
     --svg-line: #000000;
     --svg-ball: #ffd400;
+    --svg-club: #004d1a;
     --svg-aim: #cc0000;
     --cardfs: 22px;
     --detailfs: 19px;
@@ -61,6 +62,7 @@
     --svg-grass: #0d2214;
     --svg-line: #ffffff;
     --svg-ball: #ffd400;
+    --svg-club: #22c55e;
     --svg-aim: #ff5252;
   }
   body[data-font="large"]  { --cardfs: 25px; --detailfs: 21px; --btnfs: 24px; }
@@ -176,7 +178,7 @@
     background: var(--svg-grass); border: 2.5px solid var(--border);
     border-radius: 12px; padding: 5px 8px; display: flex; align-items: center; gap: 8px;
   }
-  .svgwrap svg { width: 148px; height: 74px; flex-shrink: 0; display: block; }
+  .svgwrap svg { width: 150px; height: 79px; flex-shrink: 0; display: block; }
   .svgcap { font-size: 15px; font-weight: 800; line-height: 1.32; color: var(--text); word-break: keep-all; }
   .svgcap .hl { color: var(--danger); font-weight: 900; }
 
@@ -494,7 +496,7 @@
 
 /* ===== 맞춤형 데이터 (Horsham PA · XXIO 13/14 · 60대 중반 복귀 · 보기 플레이) ===== */
 const DATA = {
-  app: { name: "SK-골프캐디", version: "v2.1" },
+  app: { name: "SK-골프캐디", version: "v2.2" },
   bagDefaults: [
     { id: "dr",  name: "드라이버",   spec: "10.5~11.5° (R)", carry: 185, note: "슬라이스 땐 호젤 +1°" },
     { id: "w5",  name: "5번 우드",   spec: "18° (R)",         carry: 165, note: "3W 대신 핵심 페어웨이 우드" },
@@ -2111,43 +2113,45 @@ function computeResolvedCard(card) {
 function buildSvgDiagram(card, res) {
   const sp = res.specs;
   const isPutt = card.mode === "putt";
-  /* 볼 위치 좌표: -1(오른발 쪽 x=92), 0(중앙 x=74), +1(왼발 쪽 x=56) */
-  const bx = 74 - ((sp.ballPos || 0) * 16);
-  const aimDir = sp.aimDir || 0; /* -1 좌, 0 직진, +1 우 (목표 방향은 위쪽 y=8) */
-  const aimEndX = 74 + (aimDir * 36);
+  /* 왼쪽(◀)이 목표 방향! 발(왼발 x=60, 오른발 x=116), 중앙 x=88, 공 y=35 */
+  const bx = 88 - ((sp.ballPos || 0) * 16);
+  const aimDir = sp.aimDir || 0; /* -1 좌측 겨냥(아래쪽), 0 목표 직진, +1 우측 겨냥(위쪽) */
+  const aimEndY = 35 - (aimDir * 13);
   const faceAngle = sp.face === "open" ? 18 : (sp.face === "closed" ? -14 : 0);
 
-  let aimCap = "목표 직진 겨냥";
+  let aimCap = "그린 중앙 / 안전 출구로 직진";
   if (isPutt) {
-    if (aimDir < 0) aimCap = "왼쪽(높은 쪽) 태우기";
-    else if (aimDir > 0) aimCap = "오른쪽(높은 쪽) 태우기";
-    else aimCap = "홀 중앙/안쪽 직진";
+    if (aimDir < 0) aimCap = "홀 왼쪽(높은 쪽) 겨냥";
+    else if (aimDir > 0) aimCap = "홀 오른쪽(높은 쪽) 겨냥";
+    else aimCap = "홀 중앙 직진 겨냥";
   } else {
-    if (aimDir > 0) aimCap = '<span class="hl">훅 대비 → 목표 우측 겨냥</span>';
-    else if (aimDir < 0) aimCap = '<span class="hl">슬라이스 대비 → 목표 좌측 겨냥</span>';
-    else aimCap = "그린 안전 중앙/출구 정렬";
+    if (aimDir > 0) aimCap = '<span class="hl">훅 대비 → 목표 오른쪽 겨냥</span>';
+    else if (aimDir < 0) aimCap = '<span class="hl">슬라이스 대비 → 목표 왼쪽 겨냥</span>';
+    else aimCap = "그린 중앙 / 안전 출구로 직진";
   }
-  const faceLabel = sp.face === "open" ? "페이스 열기" : (sp.face === "closed" ? "페이스 약간 닫기" : "페이스 직각");
+  const faceLabel = sp.face === "open" ? "채 열기" : (sp.face === "closed" ? "채 약간 닫기" : "채 직각");
 
   const svg =
-    '<svg viewBox="0 0 148 74" aria-hidden="true">' +
-    /* 목표 방향 점선 (위쪽=목표) */
-    '<line x1="74" y1="54" x2="74" y2="8" stroke="var(--svg-line)" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="4 3"/>' +
-    /* 실제 에이밍 화살표 */
-    '<line x1="74" y1="54" x2="' + aimEndX + '" y2="10" stroke="var(--svg-aim)" stroke-width="3"/>' +
-    '<circle cx="' + aimEndX + '" cy="10" r="3.5" fill="var(--svg-aim)"/>' +
-    /* 왼발(L) / 오른발(R) 발바닥 표시 (목표=위, 스탠스 선=가로) */
-    '<rect x="38" y="56" width="16" height="9" rx="4" fill="var(--svg-line)"/>' +
-    '<rect x="94" y="56" width="16" height="9" rx="4" fill="var(--svg-line)"/>' +
-    '<text x="46" y="72" font-size="9" font-weight="bold" fill="var(--muted)" text-anchor="middle">왼발</text>' +
-    '<text x="102" y="72" font-size="9" font-weight="bold" fill="var(--muted)" text-anchor="middle">오른발</text>' +
-    /* 공 + 클럽 헤드 */
-    '<circle cx="' + bx + '" cy="39" r="7" fill="var(--svg-ball)" stroke="var(--svg-line)" stroke-width="1.5"/>' +
-    '<line x1="' + (bx + 9) + '" y1="30" x2="' + (bx + 9) + '" y2="48" stroke="var(--accent)" stroke-width="3.5" stroke-linecap="round" transform="rotate(' + faceAngle + ' ' + (bx + 9) + ' 39)"/>' +
+    '<svg viewBox="0 0 156 82" aria-hidden="true">' +
+    /* 목표 방향 표시 (왼쪽 = 타깃) */
+    '<text x="6" y="11" font-size="9.5" font-weight="900" fill="var(--muted)">◀ 목표 방향</text>' +
+    /* 똑바로 목표 점선 (공 → 왼쪽) */
+    '<line x1="' + (bx - 9) + '" y1="35" x2="8" y2="35" stroke="var(--svg-line)" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="4 3"/>' +
+    /* 실제 에이밍 빨간 화살표 (공 → 왼쪽 ± 좌우 각도) */
+    '<line x1="' + (bx - 9) + '" y1="35" x2="16" y2="' + aimEndY + '" stroke="var(--svg-aim)" stroke-width="3.5" stroke-linecap="round"/>' +
+    '<polygon points="7,' + aimEndY + ' 17,' + (aimEndY - 5) + ' 17,' + (aimEndY + 5) + '" fill="var(--svg-aim)"/>' +
+    /* 왼발 / 오른발 스탠스 (하단) */
+    '<rect x="52" y="57" width="16" height="9" rx="4" fill="var(--svg-line)"/>' +
+    '<rect x="108" y="57" width="16" height="9" rx="4" fill="var(--svg-line)"/>' +
+    '<text x="60" y="77" font-size="9.5" font-weight="900" fill="var(--muted)" text-anchor="middle">왼발</text>' +
+    '<text x="116" y="77" font-size="9.5" font-weight="900" fill="var(--muted)" text-anchor="middle">오른발</text>' +
+    /* 노란 공 + 초록 클럽 헤드 */
+    '<circle cx="' + bx + '" cy="35" r="7" fill="var(--svg-ball)" stroke="var(--svg-line)" stroke-width="2"/>' +
+    '<line x1="' + (bx + 10) + '" y1="25" x2="' + (bx + 10) + '" y2="45" stroke="var(--svg-club)" stroke-width="4" stroke-linecap="round" transform="rotate(' + faceAngle + ' ' + (bx + 10) + ' 35)"/>' +
     '</svg>';
 
-  const cap = '<div class="svgcap"><div>⚽ 볼: <strong>' + esc(sp.ball || "중앙") + '</strong> · ' + esc(faceLabel) + '</div>' +
-              '<div>🎯 에이밍: ' + aimCap + '</div>' +
+  const cap = '<div class="svgcap"><div>🟡 공: <strong>' + esc(sp.ball || "중앙") + '</strong> · 🟢 ' + esc(faceLabel) + '</div>' +
+              '<div>🔴 겨냥(에이밍): ' + aimCap + '</div>' +
               '<div>⚖️ 체중: <strong>' + esc(sp.weight || "50:50") + '</strong></div></div>';
   return svg + cap;
 }
