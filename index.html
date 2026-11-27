@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#004d1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>SK-골프캐디 v2.4</title>
+<title>SK-골프캐디 v2.5</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -37,8 +37,8 @@
     --svg-club: #004d1a;
     --svg-aim: #cc0000;
     --cardfs: 24px;
-    --detailfs: 21px;
-    --btnfs: 23px;
+    --detailfs: 22px;
+    --btnfs: 24px;
   }
   body[data-theme="dark"] {
     --bg: #000000;
@@ -65,8 +65,8 @@
     --svg-club: #22c55e;
     --svg-aim: #ff5252;
   }
-  body[data-font="large"]  { --cardfs: 27px; --detailfs: 23px; --btnfs: 25px; }
-  body[data-font="xlarge"] { --cardfs: 30px; --detailfs: 25px; --btnfs: 27px; }
+  body[data-font="large"]  { --cardfs: 27px; --detailfs: 24px; --btnfs: 26px; }
+  body[data-font="xlarge"] { --cardfs: 30px; --detailfs: 26px; --btnfs: 28px; }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
@@ -77,62 +77,62 @@
 
   .screen {
     display: none; height: 100dvh; flex-direction: column;
-    padding: 5px 7px calc(7px + env(safe-area-inset-bottom));
-    gap: 5px; overflow-y: auto;
+    padding: 3px 4px calc(4px + env(safe-area-inset-bottom));
+    gap: 3px; overflow-y: auto;
   }
   .screen > :not(.scroll) { flex-shrink: 0; }
   .screen.active { display: flex; }
   .scroll { overflow-y: auto; flex: 1 1 auto; min-height: 0; -webkit-overflow-scrolling: touch; }
 
   /* 상단바 */
-  .topbar { display: flex; align-items: center; gap: 5px; min-height: 44px; }
+  .topbar { display: flex; align-items: center; gap: 3px; min-height: 40px; }
   .topbar .title {
     flex: 1; font-size: 21px; font-weight: 900; color: var(--accent);
     text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .smallbtn {
-    min-width: 44px; min-height: 44px; font-size: 20px; font-weight: 900;
+    min-width: 40px; min-height: 40px; font-size: 19px; font-weight: 900;
     background: var(--bg); color: var(--accent);
-    border: 2.5px solid var(--border); border-radius: 10px; cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center; padding: 0 7px;
+    border: 2.5px solid var(--border); border-radius: 8px; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; padding: 0 5px;
   }
-  .smallbtn.wide { font-size: 17px; padding: 0 8px; white-space: nowrap; gap: 3px; }
+  .smallbtn.wide { font-size: 17px; padding: 0 7px; white-space: nowrap; gap: 2px; }
   .smallbtn.on { background: var(--accent); color: var(--accent-fg); }
 
   /* 모드 스위치 (샷 vs 퍼팅) */
   .modeswitch {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
-    background: var(--bg); padding: 3px; border-radius: 12px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+    background: var(--bg); padding: 2px; border-radius: 10px;
     border: 3px solid var(--border);
   }
   .modebtn {
-    min-height: 44px; border: 0; border-radius: 9px;
+    min-height: 40px; border: 0; border-radius: 7px;
     font-size: 20px; font-weight: 900; cursor: pointer;
-    background: transparent; color: var(--text);
+    background: transparent; color: var(--text); padding: 0;
   }
   .modebtn.active { background: var(--accent); color: var(--accent-fg); }
 
   /* TOP3 원터치 바 */
-  .quickstrip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .quickstrip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
   .quickbtn {
-    min-height: 44px; padding: 3px 4px; border-radius: 10px;
+    min-height: 42px; padding: 3px 2px; border-radius: 8px;
     background: var(--gold-bg); color: var(--gold);
-    border: 2.5px solid var(--border); font-size: 16px; font-weight: 900;
-    line-height: 1.18; cursor: pointer; text-align: center; word-break: keep-all;
+    border: 2.5px solid var(--border); font-size: clamp(15px, 4.1vw, 18px); font-weight: 900;
+    line-height: 1.15; cursor: pointer; text-align: center; word-break: keep-all;
   }
   .puttbanner {
     background: var(--gold-bg); border: 2.5px solid var(--border);
-    border-radius: 10px; padding: 6px 8px;
-    font-size: 17px; font-weight: 900; color: var(--gold); line-height: 1.28;
+    border-radius: 8px; padding: 4px 6px;
+    font-size: clamp(16px, 4.3vw, 19px); font-weight: 900; color: var(--gold); line-height: 1.2;
   }
   .puttbanner strong { color: var(--gold); text-decoration: underline; }
 
-  /* 대형 버튼 & 그리드 */
+  /* 대형 버튼 & 그리드 (여백 제로 + 초대형 볼드 글씨) */
   .bigbtn {
-    min-height: 54px; font-size: var(--btnfs); font-weight: 900; width: 100%;
+    min-height: 52px; font-size: var(--btnfs); font-weight: 900; width: 100%;
     background: var(--surface); color: var(--text);
-    border: 3px solid var(--border); border-radius: 12px; cursor: pointer;
-    padding: 6px 8px; line-height: 1.18; word-break: keep-all;
+    border: 3px solid var(--border); border-radius: 10px; cursor: pointer;
+    padding: 4px 6px; line-height: 1.15; word-break: keep-all;
   }
   .bigbtn.primary { background: var(--accent); color: var(--accent-fg); }
   .bigbtn.soft { border-color: var(--border-soft); }
@@ -140,24 +140,42 @@
 
   .homegrid {
     flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, 1fr); gap: 6px; min-height: 0;
+    grid-template-rows: repeat(4, 1fr); gap: 4px; min-height: 0;
   }
   .homegrid .bigbtn {
-    height: 100%; min-height: 0; font-size: 22px; font-weight: 900;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-    padding: 4px;
+    height: 100%; min-height: 0; border-radius: 9px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; padding: 2px 3px;
   }
-  .homegrid .ico { font-size: 26px; line-height: 1; }
-  .homegrid .sub { font-size: 16px; font-weight: 900; color: var(--muted); }
+  .homegrid .hmain {
+    font-size: clamp(20px, 5.4vw, 25px); font-weight: 900;
+    line-height: 1.12; color: var(--accent); word-break: keep-all;
+  }
+  .homegrid .ico { font-size: 1em; line-height: 1; }
+  .homegrid .sub {
+    font-size: clamp(16px, 4.4vw, 19px); font-weight: 900;
+    line-height: 1.12; color: var(--text); word-break: keep-all;
+  }
+  .homegrid .bigbtn:active .hmain,
   .homegrid .bigbtn:active .sub { color: var(--accent-fg); }
 
-  #distList { display: flex; flex-direction: column; gap: 6px; }
+  /* 둘째 화면 (거리·세부 라이): 여백 최소 + 설명 크게 볼드 2줄 풀확장 */
+  #distList { display: flex; flex-direction: column; gap: 4px; flex: 1; }
   .distbtn {
-    display: flex; align-items: center; justify-content: space-between; text-align: left;
-    min-height: 58px; padding: 7px 10px; gap: 6px;
+    flex: 1 0 64px; max-height: 132px;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+    text-align: left; padding: 4px 8px; gap: 2px; border-radius: 10px;
   }
-  .distbtn .dmain { font-size: var(--btnfs); font-weight: 900; color: var(--accent); }
-  .distbtn .dsub { font-size: 17px; font-weight: 900; color: var(--muted); }
+  .distbtn .dmain {
+    font-size: clamp(22px, 6vw, 27px); font-weight: 900;
+    color: var(--accent); line-height: 1.14;
+  }
+  .distbtn .dsub {
+    font-size: clamp(18px, 4.9vw, 22px); font-weight: 900;
+    color: var(--text); line-height: 1.16;
+  }
+  .distbtn:active .dmain,
+  .distbtn:active .dsub { color: var(--accent-fg); }
 
   /* 카드 화면: 상단 박스 없는 추천클럽 + 1/3 그림 : 2/3 4줄 설명 */
   .clubhero {
@@ -226,15 +244,15 @@
   .tabbtn.sel { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
   #detailBody {
     flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
-    font-size: var(--detailfs); font-weight: 800; line-height: 1.48; color: var(--text); padding: 2px;
+    font-size: var(--detailfs); font-weight: 900; line-height: 1.42; color: var(--text); padding: 0 2px;
   }
   #detailBody p { margin: 0 0 10px 0; }
   #detailBody ul { margin: 0 0 10px 0; padding-left: 20px; }
   #detailBody li { margin-bottom: 8px; }
   .srcbox {
-    border-top: 2px solid var(--border-soft); padding-top: 6px;
-    font-size: 16px; font-weight: 800; line-height: 1.4; color: var(--muted);
-    max-height: 26vh; overflow-y: auto;
+    border-top: 2.5px solid var(--border); padding-top: 4px;
+    font-size: 17px; font-weight: 900; line-height: 1.35; color: var(--text);
+    max-height: 24vh; overflow-y: auto;
   }
   .srcbox .h { color: var(--accent); font-weight: 900; font-size: 18px; }
   .srcbox a { color: var(--blue); text-decoration: underline; word-break: break-all; }
@@ -245,8 +263,8 @@
     align-items: center; gap: 5px; padding: 6px 8px;
     background: var(--surface); border: 2.5px solid var(--border-soft); border-radius: 10px;
   }
-  .bagclub { font-size: 20px; font-weight: 900; color: var(--text); }
-  .bagclub small { display: block; font-size: 15px; color: var(--muted); font-weight: 800; }
+  .bagclub { font-size: 21px; font-weight: 900; color: var(--text); }
+  .bagclub small { display: block; font-size: 17px; color: var(--text); font-weight: 900; }
   .bagdist { font-size: 24px; font-weight: 900; color: var(--accent); text-align: center; }
   .bagctrl { display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
   .stepbtn {
@@ -261,7 +279,7 @@
   .clockbox .ch { color: var(--gold); font-weight: 900; font-size: 19px; margin-bottom: 3px; }
 
   /* 복귀 노트 */
-  #lessonBody { font-size: var(--detailfs); font-weight: 800; line-height: 1.48; color: var(--text); }
+  #lessonBody { font-size: var(--detailfs); font-weight: 900; line-height: 1.42; color: var(--text); }
   #lessonBody p { margin: 0 0 10px 0; }
   #lessonBody ul { margin: 0 0 12px 0; padding-left: 20px; }
   #lessonBody li { margin-bottom: 8px; }
@@ -317,7 +335,7 @@
   </div>
 
   <!-- 샷 모드 -->
-  <div id="homeShotArea" style="display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;">
+  <div id="homeShotArea" style="display:flex;flex-direction:column;gap:3px;flex:1;min-height:0;">
     <div class="quickstrip">
       <button class="quickbtn" id="qPitch">🎯 40~70y<br>어중간 피치</button>
       <button class="quickbtn" id="qLob">🏖️ 벙커 넘김<br>하이피치</button>
@@ -327,7 +345,7 @@
   </div>
 
   <!-- 퍼팅 모드 -->
-  <div id="homePuttArea" style="display:none;flex-direction:column;gap:8px;flex:1;min-height:0;">
+  <div id="homePuttArea" style="display:none;flex-direction:column;gap:3px;flex:1;min-height:0;">
     <div class="puttbanner">
       <strong>그린 3원칙:</strong> ① 낮은 쪽서 읽기 ② 내리막 약하게·오르막 지나치게 ③ 6ft↓ 공 줄 정렬
     </div>
@@ -494,7 +512,7 @@
 
 /* ===== 맞춤형 데이터 (Horsham PA · XXIO 13/14 · 60대 중반 복귀 · 보기 플레이) ===== */
 const DATA = {
-  app: { name: "SK-골프캐디", version: "v2.4" },
+  app: { name: "SK-골프캐디", version: "v2.5" },
   bagDefaults: [
     { id: "dr",  name: "드라이버",   spec: "10.5~11.5° (R)", carry: 185, note: "슬라이스 땐 호젤 +1°" },
     { id: "w5",  name: "5번 우드",   spec: "18° (R)",         carry: 165, note: "3W 대신 핵심 페어웨이 우드" },
@@ -526,7 +544,7 @@ const DATA = {
         { id: "15~40", label: "15~40야드", sub: "스핀 감소·구름↑" },
         { id: "40~70", label: "40~70야드 ★", sub: "풀 저항 돌파 피치" },
         { id: "70~110", label: "70~110야드", sub: "뜸(플라이어)/잠김 확인" },
-        { id: "110~155", label: "110~155야드", sub: "호젤 감김·좌측 주의" },
+        { id: "110~155", label: "110~155야드", sub: "호젤 감김·왼쪽 주의" },
         { id: "155+", label: "155야드 이상", sub: "5H 우선·5W 신중" }
       ]
     },
@@ -545,11 +563,11 @@ const DATA = {
       id: "slope_lie", label: "경사 라이", sub: "오르막·내리막·발끝", icon: "⛰️",
       distances: [
         { id: "uphill_short", label: "왼발 오르막 (~70y)", sub: "어프로치·탄도↑" },
-        { id: "uphill_full", label: "왼발 오르막 (70y+)", sub: "+1~2클럽·좌측 당김" },
+        { id: "uphill_full", label: "왼발 오르막 (70y+)", sub: "+1~2클럽·왼쪽 당김" },
         { id: "downhill_short", label: "왼발 내리막 (~70y) ★", sub: "뒤땅주의·낮게 굴리기" },
-        { id: "downhill_full", label: "왼발 내리막 (70y+)", sub: "-1클럽·우측 밀림" },
-        { id: "above_feet", label: "공이 발보다 높음", sub: "훅 주의 → 우측 겨냥" },
-        { id: "below_feet", label: "공이 발보다 낮음", sub: "슬라이스 주의 → 좌측 겨냥" }
+        { id: "downhill_full", label: "왼발 내리막 (70y+)", sub: "-1클럽·오른쪽 밀림" },
+        { id: "above_feet", label: "공이 발보다 높음", sub: "훅 주의 → 오른쪽 조준" },
+        { id: "below_feet", label: "공이 발보다 낮음", sub: "슬라이스 → 왼쪽 조준" }
       ]
     },
     {
@@ -570,7 +588,7 @@ const DATA = {
     {
       id: "bad_turf", label: "디봇·맨땅·젖음", sub: "나쁜 바닥·구제", icon: "💧",
       distances: [
-        { id: "divot_short", label: "디봇 자국 (~50y)", sub: "볼 뒤로·낮게 굴리기" },
+        { id: "divot_short", label: "디봇 자국 (~50y)", sub: "공 뒤로·낮게 굴리기" },
         { id: "divot_full", label: "디봇 자국 (50y+)", sub: "+1클럽·찍어 치기" },
         { id: "tight_short", label: "맨땅·짧은 잔디 (~50y)", sub: "퍼터·9i/PW (바닥 튕김 주의)" },
         { id: "tight_full", label: "맨땅·짧은 잔디 (50y+)", sub: "5H 쓸기·뒤땅 금지" },
@@ -579,7 +597,7 @@ const DATA = {
       ]
     },
     {
-      id: "trouble", label: "위기 탈출 (나무·물)", sub: "보기플레이 위기관리", icon: "🌳",
+      id: "trouble", label: "나무·물 탈출", sub: "보기플레이 위기관리", icon: "🌳",
       distances: [
         { id: "~40", label: "~40야드 (탈출 우선)", sub: "7i 낮게 굴려 빼기" },
         { id: "40~110", label: "40~110야드 (낮게 굴리기)", sub: "가지 아래로 낮게" },
@@ -590,12 +608,12 @@ const DATA = {
   puttSituations: [
     { id: "putt_up", label: "오르막 퍼트", sub: "짧음 방지·홀 1ft 뒤", icon: "⬆️" },
     { id: "putt_down", label: "내리막 퍼트", sub: "유리판 터치·위쪽 태우기", icon: "⬇️" },
-    { id: "putt_slice", label: "슬라이스 (좌→우)", sub: "왼쪽 조준·속도 비례", icon: "↪️" },
-    { id: "putt_hook", label: "훅 (우→좌)", sub: "오른쪽 조준·느릴수록 휘어짐", icon: "↩️" },
-    { id: "putt_tier", label: "복합 경사 · 2단", sub: "같은 단 올리기가 1순위", icon: "〰️" },
-    { id: "putt_short", label: "숏퍼트 (~6ft)", sub: "공 줄 정렬·과감한 직선", icon: "🎯" },
-    { id: "putt_long", label: "롱퍼트 (20ft+)", sub: "줄 숨기기·3ft 원 거리감", icon: "📏" },
-    { id: "putt_surface", label: "그린 밖·젖음·포아", sub: "PA 잔디·오후 튐 주의", icon: "🌱" }
+    { id: "putt_slice", label: "슬라이스 퍼트", sub: "좌→우 · 왼쪽 조준", icon: "↪️" },
+    { id: "putt_hook", label: "훅 퍼트", sub: "우→좌 · 오른쪽 조준", icon: "↩️" },
+    { id: "putt_tier", label: "2단 · S자", sub: "같은 단 올리기 1순위", icon: "〰️" },
+    { id: "putt_short", label: "숏퍼트 6ft↓", sub: "공 줄 정렬·직진", icon: "🎯" },
+    { id: "putt_long", label: "롱퍼트 20ft+", sub: "줄 숨기기·1m 원", icon: "📏" },
+    { id: "putt_surface", label: "그린 밖·젖음", sub: "프린지·오후 잔디 튐", icon: "🌱" }
   ],
 
   /* 칩 그룹 정의: 각 상황별 충돌 없는 변수 */
@@ -2003,7 +2021,7 @@ function renderHome() {
     getData().lies.forEach(function (l) {
       const b = document.createElement("button");
       b.className = "bigbtn";
-      b.innerHTML = '<span class="ico">' + esc(l.icon) + '</span><span>' + esc(l.label) + '</span>' +
+      b.innerHTML = '<span class="hmain"><span class="ico">' + esc(l.icon) + '</span> ' + esc(l.label) + '</span>' +
                     (l.sub ? '<span class="sub">' + esc(l.sub) + '</span>' : '');
       b.onclick = function () { st.distMode = "card"; openDist(l.id); };
       g.appendChild(b);
@@ -2014,7 +2032,7 @@ function renderHome() {
     (getData().puttSituations || []).forEach(function (p) {
       const b = document.createElement("button");
       b.className = "bigbtn";
-      b.innerHTML = '<span class="ico">' + esc(p.icon) + '</span><span>' + esc(p.label) + '</span>' +
+      b.innerHTML = '<span class="hmain"><span class="ico">' + esc(p.icon) + '</span> ' + esc(p.label) + '</span>' +
                     (p.sub ? '<span class="sub">' + esc(p.sub) + '</span>' : '');
       b.onclick = function () { st.lie = p.id; st.distance = "main"; openCard(); };
       pg.appendChild(b);

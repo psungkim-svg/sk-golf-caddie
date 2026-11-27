@@ -1,5 +1,5 @@
 /* SK-골프캐디 v2.0 오프라인 서비스 워커 */
-const CACHE_NAME = "sk-golf-caddie-v2.4";
+const CACHE_NAME = "sk-golf-caddie-v2.5";
 const FILES = [
   "./",
   "./index.html",
