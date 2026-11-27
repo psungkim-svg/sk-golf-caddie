@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#004d1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>SK-골프캐디 v2.3</title>
+<title>SK-골프캐디 v2.4</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -36,9 +36,9 @@
     --svg-ball: #ffd400;
     --svg-club: #004d1a;
     --svg-aim: #cc0000;
-    --cardfs: 22px;
-    --detailfs: 19px;
-    --btnfs: 22px;
+    --cardfs: 24px;
+    --detailfs: 21px;
+    --btnfs: 23px;
   }
   body[data-theme="dark"] {
     --bg: #000000;
@@ -65,8 +65,8 @@
     --svg-club: #22c55e;
     --svg-aim: #ff5252;
   }
-  body[data-font="large"]  { --cardfs: 25px; --detailfs: 21px; --btnfs: 24px; }
-  body[data-font="xlarge"] { --cardfs: 28px; --detailfs: 23px; --btnfs: 26px; }
+  body[data-font="large"]  { --cardfs: 27px; --detailfs: 23px; --btnfs: 25px; }
+  body[data-font="xlarge"] { --cardfs: 30px; --detailfs: 25px; --btnfs: 27px; }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
@@ -77,62 +77,62 @@
 
   .screen {
     display: none; height: 100dvh; flex-direction: column;
-    padding: 8px 10px calc(10px + env(safe-area-inset-bottom));
-    gap: 8px; overflow-y: auto;
+    padding: 5px 7px calc(7px + env(safe-area-inset-bottom));
+    gap: 5px; overflow-y: auto;
   }
   .screen > :not(.scroll) { flex-shrink: 0; }
   .screen.active { display: flex; }
   .scroll { overflow-y: auto; flex: 1 1 auto; min-height: 0; -webkit-overflow-scrolling: touch; }
 
   /* 상단바 */
-  .topbar { display: flex; align-items: center; gap: 6px; min-height: 48px; }
+  .topbar { display: flex; align-items: center; gap: 5px; min-height: 44px; }
   .topbar .title {
-    flex: 1; font-size: 20px; font-weight: 800; color: var(--accent);
+    flex: 1; font-size: 21px; font-weight: 900; color: var(--accent);
     text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .smallbtn {
-    min-width: 46px; min-height: 46px; font-size: 20px; font-weight: 800;
+    min-width: 44px; min-height: 44px; font-size: 20px; font-weight: 900;
     background: var(--bg); color: var(--accent);
-    border: 2.5px solid var(--border); border-radius: 12px; cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center; padding: 0 8px;
+    border: 2.5px solid var(--border); border-radius: 10px; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; padding: 0 7px;
   }
-  .smallbtn.wide { font-size: 16px; padding: 0 10px; white-space: nowrap; gap: 4px; }
+  .smallbtn.wide { font-size: 17px; padding: 0 8px; white-space: nowrap; gap: 3px; }
   .smallbtn.on { background: var(--accent); color: var(--accent-fg); }
 
   /* 모드 스위치 (샷 vs 퍼팅) */
   .modeswitch {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-    background: var(--bg); padding: 4px; border-radius: 14px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    background: var(--bg); padding: 3px; border-radius: 12px;
     border: 3px solid var(--border);
   }
   .modebtn {
-    min-height: 48px; border: 0; border-radius: 10px;
-    font-size: 18px; font-weight: 900; cursor: pointer;
+    min-height: 44px; border: 0; border-radius: 9px;
+    font-size: 20px; font-weight: 900; cursor: pointer;
     background: transparent; color: var(--text);
   }
   .modebtn.active { background: var(--accent); color: var(--accent-fg); }
 
   /* TOP3 원터치 바 */
-  .quickstrip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .quickstrip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
   .quickbtn {
-    min-height: 46px; padding: 4px 6px; border-radius: 10px;
+    min-height: 44px; padding: 3px 4px; border-radius: 10px;
     background: var(--gold-bg); color: var(--gold);
-    border: 2.5px solid var(--border); font-size: 14px; font-weight: 900;
-    line-height: 1.2; cursor: pointer; text-align: center; word-break: keep-all;
+    border: 2.5px solid var(--border); font-size: 16px; font-weight: 900;
+    line-height: 1.18; cursor: pointer; text-align: center; word-break: keep-all;
   }
   .puttbanner {
     background: var(--gold-bg); border: 2.5px solid var(--border);
-    border-radius: 12px; padding: 8px 10px;
-    font-size: 15px; font-weight: 800; color: var(--gold); line-height: 1.35;
+    border-radius: 10px; padding: 6px 8px;
+    font-size: 17px; font-weight: 900; color: var(--gold); line-height: 1.28;
   }
   .puttbanner strong { color: var(--gold); text-decoration: underline; }
 
   /* 대형 버튼 & 그리드 */
   .bigbtn {
-    min-height: 60px; font-size: var(--btnfs); font-weight: 900; width: 100%;
+    min-height: 54px; font-size: var(--btnfs); font-weight: 900; width: 100%;
     background: var(--surface); color: var(--text);
-    border: 3px solid var(--border); border-radius: 14px; cursor: pointer;
-    padding: 8px 10px; line-height: 1.22; word-break: keep-all;
+    border: 3px solid var(--border); border-radius: 12px; cursor: pointer;
+    padding: 6px 8px; line-height: 1.18; word-break: keep-all;
   }
   .bigbtn.primary { background: var(--accent); color: var(--accent-fg); }
   .bigbtn.soft { border-color: var(--border-soft); }
@@ -140,148 +140,147 @@
 
   .homegrid {
     flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, 1fr); gap: 8px; min-height: 0;
+    grid-template-rows: repeat(4, 1fr); gap: 6px; min-height: 0;
   }
   .homegrid .bigbtn {
-    height: 100%; min-height: 0; font-size: 20px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    height: 100%; min-height: 0; font-size: 22px; font-weight: 900;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    padding: 4px;
   }
   .homegrid .ico { font-size: 26px; line-height: 1; }
-  .homegrid .sub { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .homegrid .sub { font-size: 16px; font-weight: 900; color: var(--muted); }
   .homegrid .bigbtn:active .sub { color: var(--accent-fg); }
 
-  #distList { display: flex; flex-direction: column; gap: 8px; }
+  #distList { display: flex; flex-direction: column; gap: 6px; }
   .distbtn {
     display: flex; align-items: center; justify-content: space-between; text-align: left;
-    min-height: 62px; padding: 10px 14px;
+    min-height: 58px; padding: 7px 10px; gap: 6px;
   }
-  .distbtn .dmain { font-size: var(--btnfs); font-weight: 800; color: var(--accent); }
-  .distbtn .dsub { font-size: 15px; font-weight: 700; color: var(--muted); }
+  .distbtn .dmain { font-size: var(--btnfs); font-weight: 900; color: var(--accent); }
+  .distbtn .dsub { font-size: 17px; font-weight: 900; color: var(--muted); }
 
-  /* 카드 화면 */
-  .specgrid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;
+  /* 카드 화면: 상단 박스 없는 추천클럽 + 1/3 그림 : 2/3 4줄 설명 */
+  .clubhero {
+    text-align: center; font-size: calc(var(--btnfs) + 1px); font-weight: 900;
+    line-height: 1.2; color: var(--accent); padding: 2px 2px; word-break: keep-all;
   }
-  .specbox {
-    background: var(--surface2); border: 2.5px solid var(--border);
-    border-radius: 10px; padding: 5px 4px; text-align: center;
-  }
-  .specbox .sk { font-size: 12px; font-weight: 800; color: var(--muted); display: block; }
-  .specbox .sv {
-    font-size: 15px; font-weight: 900; color: var(--accent);
-    display: block; margin-top: 2px; word-break: keep-all; line-height: 1.15;
-  }
-  .specbox.warn { background: var(--danger-bg); border-color: var(--danger); }
-  .specbox.warn .sv { color: var(--danger); }
+  .clubhero.warn { color: var(--danger); }
 
   .svgwrap {
-    background: var(--svg-grass); border: 2.5px solid var(--border);
-    border-radius: 12px; padding: 5px 8px; display: flex; align-items: center; gap: 8px;
+    background: var(--svg-grass); border: 3px solid var(--border);
+    border-radius: 10px; padding: 4px 6px;
+    display: grid; grid-template-columns: 1fr 2fr; align-items: center; gap: 6px;
   }
-  .svgwrap svg { width: 150px; height: 79px; flex-shrink: 0; display: block; }
-  .svgcap { font-size: 15px; font-weight: 800; line-height: 1.32; color: var(--text); word-break: keep-all; }
-  .svgcap .hl { color: var(--danger); font-weight: 900; }
-
-  .cardlines { display: flex; flex-direction: column; gap: 6px; }
-  .cardline {
-    background: var(--surface); border: 3px solid var(--border);
-    border-radius: 12px; padding: 8px 10px;
-    font-size: var(--cardfs); font-weight: 900; line-height: 1.28;
+  .svgwrap svg { width: 100%; height: auto; max-height: 94px; display: block; }
+  .svgcap {
+    display: flex; flex-direction: column; gap: 2px;
+    font-size: clamp(15px, 4.15vw, 18px); font-weight: 900; line-height: 1.28;
     color: var(--text); word-break: keep-all;
   }
-  .cardline .k { color: var(--accent); margin-right: 4px; }
+  .svgcap .srow { display: block; }
+  .svgcap .hl { color: var(--danger); font-weight: 900; }
+
+  .cardlines { display: flex; flex-direction: column; gap: 5px; }
+  .cardline {
+    background: var(--surface); border: 3px solid var(--border);
+    border-radius: 10px; padding: 6px 8px;
+    font-size: var(--cardfs); font-weight: 900; line-height: 1.22;
+    color: var(--text); word-break: keep-all;
+  }
+  .cardline .k { color: var(--accent); margin-right: 3px; }
   .cardline.modbox {
     background: var(--gold-bg); border-color: var(--border); color: var(--gold);
-    font-size: calc(var(--cardfs) - 3px); line-height: 1.32;
+    font-size: calc(var(--cardfs) - 2px); font-weight: 900; line-height: 1.26;
   }
   .cardline.modbox .k { color: var(--gold); }
 
-  .chiparea { display: flex; flex-direction: column; gap: 5px; }
-  .chipgroup { display: flex; align-items: flex-start; gap: 6px; }
+  .chiparea { display: flex; flex-direction: column; gap: 4px; }
+  .chipgroup { display: flex; align-items: flex-start; gap: 5px; }
   .chipgroup .glabel {
-    font-size: 15px; font-weight: 800; color: var(--accent);
-    min-width: 44px; padding-top: 8px;
+    font-size: 17px; font-weight: 900; color: var(--accent);
+    min-width: 48px; padding-top: 5px;
   }
-  .chips { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
   .chip {
-    min-height: 38px; font-size: 15px; font-weight: 900; padding: 4px 10px;
+    min-height: 36px; font-size: 17px; font-weight: 900; padding: 3px 9px;
     background: var(--chip-bg); color: var(--chip-fg);
     border: 2.5px solid var(--chip-bd); border-radius: 999px; cursor: pointer;
   }
   .chip.sel { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+  #btnDetail { margin-top: auto; min-height: 50px; font-size: 20px; padding: 6px; }
 
   /* 상세 슬라이드 */
   #detailPanel {
     position: fixed; top: 0; left: 0; width: 100%; height: 100dvh;
     background: var(--bg); z-index: 50;
     transform: translateX(105%); transition: transform .24s ease;
-    display: flex; flex-direction: column; padding: 10px; gap: 8px;
+    display: flex; flex-direction: column; padding: 7px; gap: 6px;
   }
   #detailPanel.open { transform: translateX(0); }
-  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
   .tabbtn {
-    min-height: 46px; font-size: 15px; font-weight: 800;
+    min-height: 44px; font-size: 17px; font-weight: 900;
     background: var(--surface); color: var(--text);
-    border: 2px solid var(--border-soft); border-radius: 10px; cursor: pointer; padding: 4px;
+    border: 2.5px solid var(--border-soft); border-radius: 10px; cursor: pointer; padding: 3px;
   }
   .tabbtn.sel { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
   #detailBody {
     flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
-    font-size: var(--detailfs); line-height: 1.58; color: var(--text); padding: 2px;
+    font-size: var(--detailfs); font-weight: 800; line-height: 1.48; color: var(--text); padding: 2px;
   }
-  #detailBody p { margin: 0 0 12px 0; }
-  #detailBody ul { margin: 0 0 12px 0; padding-left: 22px; }
-  #detailBody li { margin-bottom: 10px; }
+  #detailBody p { margin: 0 0 10px 0; }
+  #detailBody ul { margin: 0 0 10px 0; padding-left: 20px; }
+  #detailBody li { margin-bottom: 8px; }
   .srcbox {
-    border-top: 2px solid var(--border-soft); padding-top: 8px;
-    font-size: 15px; line-height: 1.45; color: var(--muted);
-    max-height: 28vh; overflow-y: auto;
+    border-top: 2px solid var(--border-soft); padding-top: 6px;
+    font-size: 16px; font-weight: 800; line-height: 1.4; color: var(--muted);
+    max-height: 26vh; overflow-y: auto;
   }
-  .srcbox .h { color: var(--accent); font-weight: 800; font-size: 16px; }
+  .srcbox .h { color: var(--accent); font-weight: 900; font-size: 18px; }
   .srcbox a { color: var(--blue); text-decoration: underline; word-break: break-all; }
 
   /* 내 거리표 (My Bag) */
   .bagrow {
     display: grid; grid-template-columns: 1.35fr 0.7fr 1.15fr;
-    align-items: center; gap: 6px; padding: 8px 10px;
-    background: var(--surface); border: 2px solid var(--border-soft); border-radius: 12px;
+    align-items: center; gap: 5px; padding: 6px 8px;
+    background: var(--surface); border: 2.5px solid var(--border-soft); border-radius: 10px;
   }
-  .bagclub { font-size: 18px; font-weight: 800; color: var(--text); }
-  .bagclub small { display: block; font-size: 13px; color: var(--muted); font-weight: 700; }
-  .bagdist { font-size: 22px; font-weight: 900; color: var(--accent); text-align: center; }
-  .bagctrl { display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+  .bagclub { font-size: 20px; font-weight: 900; color: var(--text); }
+  .bagclub small { display: block; font-size: 15px; color: var(--muted); font-weight: 800; }
+  .bagdist { font-size: 24px; font-weight: 900; color: var(--accent); text-align: center; }
+  .bagctrl { display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
   .stepbtn {
     min-width: 40px; min-height: 40px; border-radius: 10px;
-    border: 2px solid var(--border); background: var(--bg); color: var(--accent);
-    font-size: 20px; font-weight: 900; cursor: pointer;
+    border: 2.5px solid var(--border); background: var(--bg); color: var(--accent);
+    font-size: 21px; font-weight: 900; cursor: pointer;
   }
   .clockbox {
-    background: var(--gold-bg); color: var(--gold); border: 2.5px solid var(--border); border-radius: 12px;
-    padding: 10px; font-size: 16px; font-weight: 800; line-height: 1.45;
+    background: var(--gold-bg); color: var(--gold); border: 2.5px solid var(--border); border-radius: 10px;
+    padding: 8px; font-size: 18px; font-weight: 900; line-height: 1.38;
   }
-  .clockbox .ch { color: var(--gold); font-weight: 900; font-size: 17px; margin-bottom: 4px; }
+  .clockbox .ch { color: var(--gold); font-weight: 900; font-size: 19px; margin-bottom: 3px; }
 
   /* 복귀 노트 */
-  #lessonBody { font-size: var(--detailfs); line-height: 1.58; color: var(--text); }
-  #lessonBody p { margin: 0 0 12px 0; }
-  #lessonBody ul { margin: 0 0 14px 0; padding-left: 22px; }
-  #lessonBody li { margin-bottom: 10px; }
-  #lessonBody .h { font-size: 21px; font-weight: 800; color: var(--accent); margin: 14px 0 6px 0; }
+  #lessonBody { font-size: var(--detailfs); font-weight: 800; line-height: 1.48; color: var(--text); }
+  #lessonBody p { margin: 0 0 10px 0; }
+  #lessonBody ul { margin: 0 0 12px 0; padding-left: 20px; }
+  #lessonBody li { margin-bottom: 8px; }
+  #lessonBody .h { font-size: 23px; font-weight: 900; color: var(--accent); margin: 12px 0 5px 0; }
 
   /* 설정·편집 */
-  .menu { display: flex; flex-direction: column; gap: 8px; }
-  .label { font-size: 18px; font-weight: 800; color: var(--accent); margin-top: 8px; }
-  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .menu { display: flex; flex-direction: column; gap: 6px; }
+  .label { font-size: 20px; font-weight: 900; color: var(--accent); margin-top: 6px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
   .row3 .bigbtn.sel, .row2 .bigbtn.sel { background: var(--accent); color: var(--accent-fg); }
   textarea, input[type="text"] {
     width: 100%; background: var(--bg); color: var(--text);
-    border: 2px solid var(--border-soft); border-radius: 10px;
-    font-size: 18px; padding: 10px; font-family: inherit;
+    border: 2.5px solid var(--border-soft); border-radius: 10px;
+    font-size: 19px; font-weight: 800; padding: 8px; font-family: inherit;
   }
-  textarea { min-height: 70px; }
-  .version { text-align: center; font-size: 16px; font-weight: 800; color: var(--muted); padding: 14px 0 6px; }
-  .msg { font-size: 18px; font-weight: 800; color: var(--accent); line-height: 1.4; text-align: center; padding: 6px; }
+  textarea { min-height: 64px; }
+  .version { text-align: center; font-size: 17px; font-weight: 900; color: var(--muted); padding: 10px 0 4px; }
+  .msg { font-size: 19px; font-weight: 900; color: var(--accent); line-height: 1.35; text-align: center; padding: 4px; }
   .listitem { text-align: left; }
 
   #toast {
@@ -330,7 +329,7 @@
   <!-- 퍼팅 모드 -->
   <div id="homePuttArea" style="display:none;flex-direction:column;gap:8px;flex:1;min-height:0;">
     <div class="puttbanner">
-      <strong>그린 위 3초 원칙:</strong> ① 낮은 쪽에서 물길 읽기 ② 내리막은 약하게, 오르막은 홀 지나치기 ③ 6ft 이내는 공 줄 맞추기!
+      <strong>그린 3원칙:</strong> ① 낮은 쪽서 읽기 ② 내리막 약하게·오르막 지나치게 ③ 6ft↓ 공 줄 정렬
     </div>
     <div class="homegrid" id="puttGrid"></div>
   </div>
@@ -355,11 +354,10 @@
     <button class="smallbtn" data-home="1">🏠</button>
   </div>
 
-  <div class="specgrid" id="specGrid"></div>
+  <div class="clubhero" id="clubHero"></div>
   <div class="svgwrap" id="svgWrap"></div>
   <div class="cardlines" id="cardLines"></div>
   <div class="chiparea" id="chipArea"></div>
-  <div style="flex:1"></div>
   <button class="bigbtn primary" id="btnDetail">🔍 원리 · 실수방지 · 연습법</button>
 </div>
 
@@ -496,7 +494,7 @@
 
 /* ===== 맞춤형 데이터 (Horsham PA · XXIO 13/14 · 60대 중반 복귀 · 보기 플레이) ===== */
 const DATA = {
-  app: { name: "SK-골프캐디", version: "v2.3" },
+  app: { name: "SK-골프캐디", version: "v2.4" },
   bagDefaults: [
     { id: "dr",  name: "드라이버",   spec: "10.5~11.5° (R)", carry: 185, note: "슬라이스 땐 호젤 +1°" },
     { id: "w5",  name: "5번 우드",   spec: "18° (R)",         carry: 165, note: "3W 대신 핵심 페어웨이 우드" },
@@ -595,7 +593,7 @@ const DATA = {
     { id: "putt_slice", label: "슬라이스 (좌→우)", sub: "왼쪽 조준·속도 비례", icon: "↪️" },
     { id: "putt_hook", label: "훅 (우→좌)", sub: "오른쪽 조준·느릴수록 휘어짐", icon: "↩️" },
     { id: "putt_tier", label: "복합 경사 · 2단", sub: "같은 단 올리기가 1순위", icon: "〰️" },
-    { id: "putt_short", label: "숏퍼트 (~6ft)", sub: "줄 맞추기·과감히 직진", icon: "🎯" },
+    { id: "putt_short", label: "숏퍼트 (~6ft)", sub: "공 줄 정렬·과감한 직선", icon: "🎯" },
     { id: "putt_long", label: "롱퍼트 (20ft+)", sub: "줄 숨기기·3ft 원 거리감", icon: "📏" },
     { id: "putt_surface", label: "그린 밖·젖음·포아", sub: "PA 잔디·오후 튐 주의", icon: "🌱" }
   ],
@@ -696,10 +694,10 @@ const DATA = {
       ]
     },
     putt_align: {
-      label: "공 줄",
+      label: "정렬",
       items: [
-        { id: "a_feel", label: "감각대로" },
-        { id: "a_line", label: "공 줄 맞춤" }
+        { id: "a_feel", label: "감각·무정렬" },
+        { id: "a_line", label: "공 줄 정렬" }
       ]
     }
   },
@@ -731,7 +729,7 @@ const DATA = {
     p_long:      { note: "롱퍼트(20ft+): 공 줄 숨기고 홀 주변 1m 큰 원 안에 넣기만 보기" },
     s_fast:      { note: "빠른 그린: 백스윙 크기 절반, 컵 닿기 전에 힘 다 빠지는 터치" },
     s_slow:      { note: "느림/젖은 그린: 브레이크 적게 보고 평소보다 20% 더 굴려 치기" },
-    a_line:      { note: "줄 맞추기(오디세이 말렛): 뒤에서 줄 맞추고, 선 뒤엔 방향 100% 믿기" }
+    a_line:      { note: "공 줄 정렬(오디세이 말렛): 뒤에서 줄 정렬 후 선 방향 100% 믿기" }
   },
 
   cards: [
@@ -1074,7 +1072,7 @@ const DATA = {
     {
       lie: "deep_rough", distance: "110~155", mode: "shot",
       chipGroups: ["pin", "wind"],
-      specs: { club: "9i / PW(42°)", ball: "오른발 쪽 1개", ballPos: -1, weight: "왼발 60%", aim: "가장 가까운 페어웨이", aimDir: 0, face: "square", path: "steep" },
+      specs: { club: "9i / PW(42°)", ball: "오른발 쪽 1개", ballPos: -1, weight: "왼발 60%", aim: "가까운 페어웨이", aimDir: 0, face: "square", path: "steep" },
       goal: "영웅샷 절대 금지! 9i·PW로 페어웨이 정중앙 복귀",
       setup: "나갈 길 가장 넓은 페어웨이 향해 스탠스·그립 꽉",
       tip: "두 번 만에 100y 밖에서 올리면 보기! 무리하면 트리플",
@@ -1473,7 +1471,7 @@ const DATA = {
     {
       lie: "trouble", distance: "~40", mode: "shot",
       chipGroups: ["obstacle", "wind"],
-      specs: { club: "7i / 8i", ball: "오른발 쪽 1.5개", ballPos: -1, weight: "왼발 65%", aim: "가장 넓은 출구", aimDir: 0, face: "square", path: "chip" },
+      specs: { club: "7i / 8i", ball: "오른발 쪽 1.5개", ballPos: -1, weight: "왼발 65%", aim: "넓은 탈출구", aimDir: 0, face: "square", path: "chip" },
       goal: "그린 좁은 틈 보지 말고 가장 넓은 페어웨이로 톡 빼기",
       setup: "퍼팅하듯 작게·손 앞·낮은 피니시",
       tip: "뒤로 빼는 게 가장 빠를 땐 뒤로 빼는 게 최고수!",
@@ -1600,7 +1598,7 @@ const DATA = {
       chipGroups: ["putt_dist", "putt_speed", "putt_align"],
       specs: { club: "오디세이 말렛", ball: "왼쪽 눈 아래", ballPos: 0.5, weight: "50:50", aim: "홀 오른쪽(높은 쪽)", aimDir: 1, face: "square", path: "putt" },
       goal: "홀 오른쪽(높은 쪽) 겨냥! 약할수록 더 많이 왼쪽으로 감김",
-      setup: "공 줄 맞출 때 목표 오른쪽 가장 높은 지점 향해 맞추기",
+      setup: "공 줄 정렬 시 목표 오른쪽 가장 높은 지점 향해 맞추기",
       tip: "치고 나서 왼쪽으로 당겨 치지 않게 오른쪽 손목 고정!",
       detail: {
         principle: "우→좌 훅 라인은 눈에 잘 보여 조준하기가 슬라이스보다 편하지만, 끝에서 속도가 줄며 예상보다 더 꺾여 왼쪽으로 빠지기 쉽습니다. 속도와 조준은 항상 한 세트입니다(세게 치면 덜 보고, 살살 태우면 더 오른쪽 보기).",
@@ -1618,7 +1616,7 @@ const DATA = {
     {
       lie: "putt_tier", distance: "main", mode: "putt",
       chipGroups: ["putt_dist", "putt_speed", "putt_align"],
-      specs: { club: "오디세이 말렛", ball: "왼쪽 눈 아래", ballPos: 0.5, weight: "50:50", aim: "핀 있는 층 올리기", aimDir: 0, face: "square", path: "putt" },
+      specs: { club: "오디세이 말렛", ball: "왼쪽 눈 아래", ballPos: 0.5, weight: "50:50", aim: "핀 있는 층", aimDir: 0, face: "square", path: "putt" },
       goal: "첫 퍼트에 넣기 욕심 X! 핀이 있는 '같은 단' 위에 올리면 성공",
       setup: "먼저 오르막/내리막 구간부터 판단·가장 꺾이는 지점(언덕) 찾기",
       tip: "언덕을 넘어가면 내리막일 땐 넘자마자 멈추게 거리 설계",
@@ -1639,7 +1637,7 @@ const DATA = {
       lie: "putt_short", distance: "main", mode: "putt",
       chipGroups: ["putt_speed", "putt_align"],
       specs: { club: "오디세이 말렛", ball: "왼쪽 눈 아래", ballPos: 0.5, weight: "50:50", aim: "홀 안쪽 컵 벽", aimDir: 0, face: "square", path: "putt" },
-      goal: "6ft 이내는 공 줄 맞추기 추천! 경사 절반만 보고 과감히",
+      goal: "6ft 이내는 공 줄 정렬 추천! 경사 절반만 보고 과감히",
       setup: "뒤에서 공의 줄 맞추기 → 어드레스 후 줄 믿고 고개 고정!",
       tip: "어드레스 서고 나서 '어, 안 맞나?' 의심해 수정하면 100% 미스!",
       detail: {
@@ -2113,46 +2111,44 @@ function computeResolvedCard(card) {
 function buildSvgDiagram(card, res) {
   const sp = res.specs;
   const isPutt = card.mode === "putt";
-  /* 왼쪽(◀)이 목표 방향! 발(왼발 x=60, 오른발 x=116), 중앙 x=88, 공 y=35 */
-  const bx = 88 - ((sp.ballPos || 0) * 16);
-  const aimDir = sp.aimDir || 0; /* -1 좌측 겨냥(아래쪽), 0 목표 직진, +1 우측 겨냥(위쪽) */
-  const aimEndY = 35 - (aimDir * 13);
+  /* 1/3 폭에 맞춘 큰 글자·굵은 선 SVG (왼쪽 ◀ = 목표 방향, 왼발 x=52, 오른발 x=100, 중앙 x=76) */
+  const bx = 76 - ((sp.ballPos || 0) * 14);
+  const aimDir = sp.aimDir || 0;
+  const aimEndY = 36 - (aimDir * 13);
   const faceAngle = sp.face === "open" ? 18 : (sp.face === "closed" ? -14 : 0);
 
-  let aimCap = esc(sp.aim || "목표 직진") + " (똑바로)";
+  const baseAim = sp.aim || (isPutt ? "홀 중앙" : "목표 직진");
+  const straightTag = (baseAim.length <= 7 && baseAim.indexOf("가깝게") === -1) ? " (똑바로)" : "";
+  let aimCap = esc(baseAim) + straightTag;
   if (isPutt) {
-    if (aimDir < 0) aimCap = "홀 왼쪽(높은 쪽) 조준";
-    else if (aimDir > 0) aimCap = "홀 오른쪽(높은 쪽) 조준";
-    else aimCap = esc(sp.aim || "홀 중앙") + " (똑바로)";
+    if (aimDir < 0) aimCap = '<span class="hl">홀 왼쪽(높은 쪽)</span>';
+    else if (aimDir > 0) aimCap = '<span class="hl">홀 오른쪽(높은 쪽)</span>';
   } else {
-    if (aimDir > 0) aimCap = '<span class="hl">훅 대비 → 목표 오른쪽 조준</span>';
-    else if (aimDir < 0) aimCap = '<span class="hl">슬라이스 대비 → 목표 왼쪽 조준</span>';
-    else aimCap = esc(sp.aim || "목표 직진") + " (똑바로)";
+    if (aimDir > 0) aimCap = '<span class="hl">훅 대비 → 오른쪽</span>';
+    else if (aimDir < 0) aimCap = '<span class="hl">슬라이스 대비 → 왼쪽</span>';
   }
-  const faceLabel = sp.face === "open" ? "채 열기" : (sp.face === "closed" ? "채 약간 닫기" : "채 직각");
+  const faceLabel = sp.face === "open" ? "열기" : (sp.face === "closed" ? "약간 닫기" : "직각");
 
   const svg =
-    '<svg viewBox="0 0 156 82" aria-hidden="true">' +
-    /* 목표 방향 표시 (왼쪽 = 타깃) */
-    '<text x="6" y="11" font-size="9.5" font-weight="900" fill="var(--muted)">◀ 목표 방향</text>' +
-    /* 똑바로 목표 점선 (공 → 왼쪽) */
-    '<line x1="' + (bx - 9) + '" y1="35" x2="8" y2="35" stroke="var(--svg-line)" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="4 3"/>' +
-    /* 실제 조준 빨간 화살표 (공 → 왼쪽 ± 좌우 각도) */
-    '<line x1="' + (bx - 9) + '" y1="35" x2="16" y2="' + aimEndY + '" stroke="var(--svg-aim)" stroke-width="3.5" stroke-linecap="round"/>' +
-    '<polygon points="7,' + aimEndY + ' 17,' + (aimEndY - 5) + ' 17,' + (aimEndY + 5) + '" fill="var(--svg-aim)"/>' +
-    /* 왼발 / 오른발 스탠스 (하단) */
-    '<rect x="52" y="57" width="16" height="9" rx="4" fill="var(--svg-line)"/>' +
-    '<rect x="108" y="57" width="16" height="9" rx="4" fill="var(--svg-line)"/>' +
-    '<text x="60" y="77" font-size="9.5" font-weight="900" fill="var(--muted)" text-anchor="middle">왼발</text>' +
-    '<text x="116" y="77" font-size="9.5" font-weight="900" fill="var(--muted)" text-anchor="middle">오른발</text>' +
-    /* 노란 공 + 초록 클럽 헤드 */
-    '<circle cx="' + bx + '" cy="35" r="7" fill="var(--svg-ball)" stroke="var(--svg-line)" stroke-width="2"/>' +
-    '<line x1="' + (bx + 10) + '" y1="25" x2="' + (bx + 10) + '" y2="45" stroke="var(--svg-club)" stroke-width="4" stroke-linecap="round" transform="rotate(' + faceAngle + ' ' + (bx + 10) + ' 35)"/>' +
+    '<svg viewBox="0 0 132 86" aria-hidden="true">' +
+    '<text x="4" y="13" font-size="11.5" font-weight="900" fill="var(--muted)">◀ 목표</text>' +
+    '<line x1="' + (bx - 9) + '" y1="36" x2="6" y2="36" stroke="var(--svg-line)" stroke-opacity="0.45" stroke-width="2.2" stroke-dasharray="4 3"/>' +
+    '<line x1="' + (bx - 9) + '" y1="36" x2="14" y2="' + aimEndY + '" stroke="var(--svg-aim)" stroke-width="4" stroke-linecap="round"/>' +
+    '<polygon points="4,' + aimEndY + ' 16,' + (aimEndY - 5.5) + ' 16,' + (aimEndY + 5.5) + '" fill="var(--svg-aim)"/>' +
+    '<rect x="44" y="57" width="16" height="10" rx="4" fill="var(--svg-line)"/>' +
+    '<rect x="92" y="57" width="16" height="10" rx="4" fill="var(--svg-line)"/>' +
+    '<text x="52" y="81" font-size="11.5" font-weight="900" fill="var(--muted)" text-anchor="middle">왼발</text>' +
+    '<text x="100" y="81" font-size="11.5" font-weight="900" fill="var(--muted)" text-anchor="middle">오른발</text>' +
+    '<circle cx="' + bx + '" cy="36" r="7.5" fill="var(--svg-ball)" stroke="var(--svg-line)" stroke-width="2.2"/>' +
+    '<line x1="' + (bx + 10) + '" y1="24" x2="' + (bx + 10) + '" y2="48" stroke="var(--svg-club)" stroke-width="4.5" stroke-linecap="round" transform="rotate(' + faceAngle + ' ' + (bx + 10) + ' 36)"/>' +
     '</svg>';
 
-  const cap = '<div class="svgcap"><div>🟡 공: <strong>' + esc(sp.ball || "중앙") + '</strong> · 🟢 ' + esc(faceLabel) + '</div>' +
-              '<div>🔴 조준: ' + aimCap + '</div>' +
-              '<div>⚖️ 체중: <strong>' + esc(sp.weight || "50:50") + '</strong></div></div>';
+  const cap = '<div class="svgcap">' +
+              '<div class="srow">🟡 공 위치: ' + esc(sp.ball || "중앙") + '</div>' +
+              '<div class="srow">🟢 클럽: ' + esc(faceLabel) + '</div>' +
+              '<div class="srow">🔴 조준: ' + aimCap + '</div>' +
+              '<div class="srow">🟢 체중: ' + esc(sp.weight || "50:50") + '</div>' +
+              '</div>';
   return svg + cap;
 }
 
@@ -2165,14 +2161,15 @@ function renderCard() {
   const card = getCard(st.lie, st.distance);
   document.getElementById("btnFav").classList.toggle("on", favs.indexOf(cardKey(st.lie, st.distance)) > -1);
 
-  const specGrid = document.getElementById("specGrid");
+  const clubHero = document.getElementById("clubHero");
   const svgWrap  = document.getElementById("svgWrap");
   const lines    = document.getElementById("cardLines");
   const chipArea = document.getElementById("chipArea");
   const btnDetail = document.getElementById("btnDetail");
 
   if (!card) {
-    specGrid.innerHTML = "";
+    clubHero.textContent = "";
+    clubHero.className = "clubhero";
     svgWrap.innerHTML = "";
     lines.innerHTML = '<div class="cardline">🚧 준비 중인 카드입니다.</div>';
     chipArea.innerHTML = "";
@@ -2184,11 +2181,8 @@ function renderCard() {
   const res = computeResolvedCard(card);
   const sp = res.specs;
 
-  specGrid.innerHTML =
-    '<div class="specbox' + (res.aimWarn ? ' warn' : '') + '"><span class="sk">추천 클럽</span><span class="sv">' + esc(res.clubDisplay) + '</span></div>' +
-    '<div class="specbox"><span class="sk">공 위치</span><span class="sv">' + esc(sp.ball || "중앙") + '</span></div>' +
-    '<div class="specbox"><span class="sk">체중</span><span class="sv">' + esc(sp.weight || "50:50") + '</span></div>' +
-    '<div class="specbox' + (sp.aimDir ? ' warn' : '') + '"><span class="sk">조준</span><span class="sv">' + esc(sp.aim || "중앙") + '</span></div>';
+  clubHero.textContent = "★추천클럽: " + res.clubDisplay;
+  clubHero.className = "clubhero" + (res.aimWarn ? " warn" : "");
 
   svgWrap.innerHTML = buildSvgDiagram(card, res);
 
