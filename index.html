@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#004d1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>SK-골프캐디 v2.6</title>
+<title>SK-골프캐디 v2.7</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -147,76 +147,76 @@
   .bigbtn.soft { border-color: var(--border-soft); }
   .bigbtn:active { background: var(--accent); color: var(--accent-fg); }
 
-  /* 첫 화면: 12개 동일 크기 박스 (노란 4칸 + 흰색 8칸), 아이콘 없음, 줄바꿈 없음, 행간·여백 최소 */
+  /* 첫 화면: 12개 동일 크기 박스 (노란 4칸 + 흰색 8칸), 글자 120% 확대 + 상하 여백 80% 축소 */
   .homegrid12 {
-    flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(6, 1fr); gap: 3px; min-height: 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, minmax(58px, 74px)); gap: 3px; min-height: 0;
   }
   .homegrid {
-    flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, 1fr); gap: 3px; min-height: 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, minmax(64px, 84px)); gap: 3px; min-height: 0;
   }
   .tilebox {
     position: relative; height: 100%; min-height: 0; width: 100%;
-    border-radius: 9px; border: 2.5px solid var(--border);
+    border-radius: 8px; border: 2.5px solid var(--border);
     background: var(--surface); color: var(--text); cursor: pointer;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 1px; padding: 2px 4px 2px 11px; overflow: hidden; text-align: center;
+    gap: 1px; padding: 3px 3px 3px 9px; overflow: hidden; text-align: center;
   }
   .tilebox::before {
-    content: ""; position: absolute; left: 3px; top: 5px; bottom: 5px; width: 5px;
-    border-radius: 3px; background: var(--accent);
+    content: ""; position: absolute; left: 3px; top: 4px; bottom: 4px; width: 4px;
+    border-radius: 2px; background: var(--accent);
   }
   .tilebox.qbox { background: var(--gold-bg); }
   .tilebox.qbox::before { background: var(--gold); }
   .tilebox.qempty {
     background: var(--empty-bg); border: 2px dashed var(--empty-bd);
-    padding: 2px 4px; color: var(--empty-fg);
+    padding: 3px 4px; color: var(--empty-fg);
   }
   .tilebox.qempty::before { display: none; }
   .tilebox .hmain {
-    font-size: clamp(20px, 5.5vw, 24px); font-weight: 900;
-    line-height: 1.08; color: var(--accent);
+    font-size: clamp(24px, 6.6vw, 29px); font-weight: 900;
+    line-height: 1.04; letter-spacing: -0.04em; color: var(--accent);
     white-space: nowrap; overflow: hidden; max-width: 100%;
   }
   .tilebox.qbox .hmain { color: var(--gold); }
   .tilebox .sub {
-    font-size: clamp(16px, 4.3vw, 18px); font-weight: 900;
-    line-height: 1.08; color: var(--text);
+    font-size: clamp(19px, 5.1vw, 22px); font-weight: 900;
+    line-height: 1.04; letter-spacing: -0.04em; color: var(--text);
     white-space: nowrap; overflow: hidden; max-width: 100%;
   }
-  .tilebox.qbox .sub { color: var(--muted); }
-  .tilebox.qempty .sub { font-size: 14px; font-weight: 800; color: var(--empty-fg); }
+  .tilebox.qbox .sub { color: var(--gold); }
+  .tilebox.qempty .sub { font-size: 16px; font-weight: 800; color: var(--empty-fg); letter-spacing: 0; }
   .tilebox:active { background: var(--accent); }
   .tilebox:active .hmain, .tilebox:active .sub { color: var(--accent-fg); }
 
-  /* 둘째 화면 (거리·세부 라이): 아이콘 없음, 줄바꿈 없음, 큰 글씨 + 포인트 디자인 + 여백 최소 */
-  #distList { display: flex; flex-direction: column; gap: 3px; flex: 1; padding-top: 1px; }
+  /* 둘째 화면 (거리·세부 라이): 글자 120% 확대 + 상하 여백 80% 축소 */
+  #distList { display: flex; flex-direction: column; gap: 3px; padding-top: 1px; }
   .distbtn {
-    position: relative; flex: 1 0 60px; max-height: 112px;
+    position: relative; flex: 0 0 auto; min-height: 0;
     display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-    text-align: left; padding: 3px 26px 3px 16px; gap: 1px;
-    border-radius: 10px; border: 2.5px solid var(--border); background: var(--surface);
+    text-align: left; padding: 5px 24px 5px 14px; gap: 1px;
+    border-radius: 9px; border: 2.5px solid var(--border); background: var(--surface);
   }
   .distbtn::before {
-    content: ""; position: absolute; left: 4px; top: 6px; bottom: 6px; width: 6px;
+    content: ""; position: absolute; left: 4px; top: 5px; bottom: 5px; width: 5px;
     border-radius: 3px; background: var(--accent);
   }
   .distbtn::after {
-    content: "›"; position: absolute; right: 8px; top: 50%; transform: translateY(-54%);
-    font-size: 28px; font-weight: 900; color: var(--accent); line-height: 1;
+    content: "›"; position: absolute; right: 7px; top: 50%; transform: translateY(-54%);
+    font-size: 30px; font-weight: 900; color: var(--accent); line-height: 1;
   }
   .distbtn.star { background: var(--star-bg); }
   .distbtn.star::before { background: var(--danger); }
   .distbtn.star::after { color: var(--danger); }
   .distbtn .dmain {
-    font-size: clamp(22px, 5.9vw, 26px); font-weight: 900;
-    color: var(--accent); line-height: 1.1; white-space: nowrap; max-width: 100%; overflow: hidden;
+    font-size: clamp(26px, 7.1vw, 31px); font-weight: 900; letter-spacing: -0.03em;
+    color: var(--accent); line-height: 1.06; white-space: nowrap; max-width: 100%; overflow: hidden;
   }
   .distbtn.star .dmain { color: var(--danger); }
   .distbtn .dsub {
-    font-size: clamp(18px, 4.8vw, 21px); font-weight: 900;
-    color: var(--text); line-height: 1.12; white-space: nowrap; max-width: 100%; overflow: hidden;
+    font-size: clamp(21.5px, 5.8vw, 25px); font-weight: 900; letter-spacing: -0.03em;
+    color: var(--text); line-height: 1.08; white-space: nowrap; max-width: 100%; overflow: hidden;
   }
   .distbtn:active .dmain, .distbtn:active .dsub, .distbtn:active::after { color: var(--accent-fg); }
 
@@ -555,7 +555,7 @@
 
 /* ===== 맞춤형 데이터 (Horsham PA · XXIO 13/14 · 60대 중반 복귀 · 보기 플레이) ===== */
 const DATA = {
-  app: { name: "SK-골프캐디", version: "v2.6" },
+  app: { name: "SK-골프캐디", version: "v2.7" },
   bagDefaults: [
     { id: "dr",  name: "드라이버",   spec: "10.5~11.5° (R)", carry: 185, note: "슬라이스 땐 호젤 +1°" },
     { id: "w5",  name: "5번 우드",   spec: "18° (R)",         carry: 165, note: "3W 대신 핵심 페어웨이 우드" },
@@ -651,8 +651,8 @@ const DATA = {
   puttSituations: [
     { id: "putt_up", label: "오르막 퍼트", sub: "홀 1ft 지나치기", icon: "⬆️" },
     { id: "putt_down", label: "내리막 퍼트", sub: "유리판 터치", icon: "⬇️" },
-    { id: "putt_slice", label: "슬라이스 퍼트", sub: "좌→우·왼쪽 조준", icon: "↪️" },
-    { id: "putt_hook", label: "훅 퍼트", sub: "우→좌·오른쪽 조준", icon: "↩️" },
+    { id: "putt_slice", label: "슬라이스 퍼트", sub: "좌→우 · 좌측 조준", icon: "↪️" },
+    { id: "putt_hook", label: "훅 퍼트", sub: "우→좌 · 우측 조준", icon: "↩️" },
     { id: "putt_tier", label: "2단 · S자", sub: "같은 단 올리기", icon: "〰️" },
     { id: "putt_short", label: "숏퍼트 6ft↓", sub: "공 줄 정렬·직진", icon: "🎯" },
     { id: "putt_long", label: "롱퍼트 20ft+", sub: "줄 숨기기·1m 원", icon: "📏" },
